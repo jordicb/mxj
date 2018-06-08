@@ -308,7 +308,12 @@ func xmlToMapParser(skey string, a []xml.Attr, p *xml.Decoder, r bool) (map[stri
 					v.Name.Local = strings.Replace(v.Name.Local, "-", "_", -1)
 				}
 				var key string
-				key = attrPrefix + v.Name.Local
+				if v.Name.Space == "" {
+					key = attrPrefix + v.Name.Local
+
+				} else {
+					key = attrPrefix + v.Name.Space + ":" + v.Name.Local
+				}
 				if lowerCase {
 					key = strings.ToLower(key)
 				}
